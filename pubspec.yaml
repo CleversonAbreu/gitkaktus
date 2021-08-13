@@ -31,7 +31,7 @@ dev_dependencies:
 
 flutter_native_splash:
   image: assets/images/logo.png
-  color: 1abc9c
+  color: ffd700
   android_disable_fullscreen: true
 
 flutter_icons:

@@ -17,12 +17,12 @@ class _AboutState extends State<About> {
       ),
 
       body:Container(
-          color: Color(0Xff18BC9C),
+          color: Colors.white,
           child:
           Column(
             children: [
               Center(
-                child: Image.asset('assets/images/logo.png'),
+                child: Image.asset('assets/images/logo.png',height: 320,),
               ),
               Text("Aplicativo modelo desenvolvido\n         "
                   "   para fins didáticos\n ",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,color: Colors.black45),)
