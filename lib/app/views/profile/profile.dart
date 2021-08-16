@@ -19,9 +19,9 @@ class _ProfileState extends State<Profile> {
   ProfileModel _perfilModel;
   String _message;
 
-  Future<void> _saveFavorite() async {
+  Future<void> _saveFavorite(ProfileModel perfilModel) async {
     try {
-      int id = await _db.saveFavorite(_perfilModel);
+      int id = await _db.saveFavorite(perfilModel);
       id>0 ? _message='Favoritado' : 'Não Favoritado';
     } catch (e) {
       print(e);
@@ -49,18 +49,6 @@ class _ProfileState extends State<Profile> {
         ),
       ),
       body:Body(_perfilModel,_saveFavorite,context,this.widget.login,this.widget.avatar),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async{
-           await _saveFavorite();
-        },
-        child: Icon(
-          Icons.favorite_border,
-          size: 30,
-          color: Colors.red[600],
-        ),
-        backgroundColor: Colors.grey[200],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
     );
   }
 }

@@ -1,17 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:gitkaktus/app/models/profile_model.dart';
-import 'package:gitkaktus/app/services/profile_service.dart';
-import 'package:gitkaktus/app/views/profile/components/profile_bio.dart';
+import 'package:gitkaktus/app/views/profile/components/favorite_button.dart';
 import 'package:gitkaktus/app/views/profile/components/profile_image.dart';
+import 'package:gitkaktus/app/views/profile/components/cover_image.dart';
+import 'package:gitkaktus/app/views/profile/components/profile_bio.dart';
+import 'package:gitkaktus/app/services/profile_service.dart';
+import 'package:gitkaktus/app/models/profile_model.dart';
+import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {
-  ProfileModel perfilModel;
+  ProfileModel profileModel;
   final BuildContext context;
-  final VoidCallback saveFavorite;
+  final Function(ProfileModel value) saveFavorite;
   final String login;
   final String avatar;
 
-  Body(this.perfilModel,this.saveFavorite,this.context,this.login,this.avatar);
+  Body(this.profileModel,this.saveFavorite,this.context,this.login,this.avatar);
 
   @override
   _BodyState createState() => _BodyState();
@@ -19,39 +21,29 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
 
-  Widget _buildCoverImage(Size screenSize) {
-    return Container(
-      height: screenSize.height / 6.1,
-      decoration: BoxDecoration(
-        color: Colors.amberAccent,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(this.widget.context).size;
-
     return Center(
       child: FutureBuilder<dynamic>(
         future: ProfileService().getProfile(this.widget.login),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            this.widget.perfilModel = snapshot.data;
+            this.widget.profileModel = snapshot.data;
             return ListView.separated(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
               itemBuilder: (context, index) {
                 return Container(
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 1),
-                  child: Stack(
+                  child:
+                  Stack(
                     children: <Widget>[
-                      _buildCoverImage(screenSize),
+                      CoverImage(),
                       SafeArea(
                         child: SingleChildScrollView(
                           child: Column(
                             children: <Widget>[
-                              SizedBox(height: screenSize.height / 10.4),
+                              FavoriteButton(this.widget.profileModel,this.widget.saveFavorite),
                               ProfileImage(this.widget.avatar ?? ""),
                               ProfileBio(
                                   this.widget.login,
@@ -59,7 +51,6 @@ class _BodyState extends State<Body> {
                                   snapshot.data.email ?? "Não informado",
                                   snapshot.data.bio ?? "Não informado",
                                   snapshot.data.location ?? "Não informado"),
-                              //  _buildButtons(context),
                             ],
                           ),
                         ),

@@ -15,7 +15,6 @@ class _AboutState extends State<About> {
           backgroundColor: Colors.amberAccent,
           leading: Container(),
       ),
-
       body:Container(
           color: Colors.white,
           child:
@@ -31,5 +30,4 @@ class _AboutState extends State<About> {
       ),
     );
   }
-
 }

@@ -5,7 +5,7 @@ import 'dart:async';
 
 class SearchService {
 
-  Future<List> search(String user) async {
+  Future<List<SearchModel>> search(String user) async {
     var _url = "https://api.github.com/search/users?q="+user;
 
     var response = await http.get(_url);

@@ -19,7 +19,7 @@ class _FavoritesState extends State<Favorites> {
     });
   }
 
-  _removeFavorite(int id) async {
+  void _removeFavorite(int id) async {
     int res = await _db.removeFavorite(id);
     if (res > 0)
       Toast.show('Removido', context, duration: 3, gravity: Toast.TOP);
